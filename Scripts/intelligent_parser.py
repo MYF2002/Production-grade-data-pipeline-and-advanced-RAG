@@ -4,6 +4,10 @@ import json
 from pathlib import Path
 import pymupdf
 import pandas as pd
+import os
+# 禁用 unstructured 的 analytics
+os.environ["SCARF_NO_ANALYTICS"] = "true"
+
 from unstructured.partition.html import partition_html
 from unstructured.partition.md import partition_md
 from unstructured.documents.elements import Title, NarrativeText
