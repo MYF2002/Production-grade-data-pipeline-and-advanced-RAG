@@ -1,4 +1,4 @@
-# 生产级数据处理流水线文档
+# 生产级数据管道与高级RAG
 
 ## 1. 项目功能与整体流程
 
@@ -29,7 +29,7 @@
 
 1. **克隆代码库**
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/MYF2002/Production-grade-data-pipeline-and-advanced-RAG.git
    cd Production-grade-data-pipeline-and-advanced-RAG
    ```
 
