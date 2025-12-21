@@ -1,7 +1,7 @@
 import json
 import re
 from pathlib import Path
-from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter, Language
+from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 
 def split_code_and_text(text):
     """
@@ -19,20 +19,9 @@ def split_code_and_text(text):
             parts.append({"type": "text", "content": text[last_end:start]})
             
         # 代码块
-        lang = match.group(1)
         code_content = match.group(2)
-        # 如果没有指定语言，默认为 python (或者可以根据需求调整)
-        language = Language.PYTHON 
-        if lang.lower() in ['js', 'javascript']:
-            language = Language.JS
-        elif lang.lower() in ['java']:
-            language = Language.JAVA
-        elif lang.lower() in ['go']:
-            language = Language.GO
-        elif lang.lower() in ['cpp', 'c++']:
-            language = Language.CPP
-            
-        parts.append({"type": "code", "content": code_content, "language": language})
+        
+        parts.append({"type": "code", "content": code_content})
         
         last_end = end
         
@@ -130,19 +119,12 @@ def chunk_documents(input_file, output_file):
                     chunk_size = determine_chunk_size(seg['content'], content_type)
                     chunk_overlap = int(chunk_size * 0.1) # 10% overlap
                     
-                    if content_type == 'code':
-                        # 代码块分块策略
-                        splitter = RecursiveCharacterTextSplitter.from_language(
-                            language=seg['language'], 
-                            chunk_size=chunk_size, 
-                            chunk_overlap=chunk_overlap
-                        )
-                    else:
-                        # 普通文本分块策略
-                        splitter = RecursiveCharacterTextSplitter(
-                            chunk_size=chunk_size,
-                            chunk_overlap=chunk_overlap
-                        )
+                    # 统一使用 RecursiveCharacterTextSplitter
+                    # 对于代码块，我们使用较大的 chunk_size，但不再依赖特定语言的分隔符
+                    splitter = RecursiveCharacterTextSplitter(
+                        chunk_size=chunk_size,
+                        chunk_overlap=chunk_overlap
+                    )
                         
                     sub_docs = splitter.create_documents([seg['content']])
                     

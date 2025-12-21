@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "production-grade-rag-pipeline"
+version = "0.1.0"
+description = "A production-grade RAG data pipeline with advanced parsing, chunking, and embedding capabilities."
+readme = "README1.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "MYF2002", email = "your.email@example.com"}
+]
+keywords = ["rag", "llm", "pipeline", "milvus", "embedding", "parsing"]
+
+dependencies = [
+    "pymupdf",
+    "pandas",
+    "unstructured",
+    "python-docx",
+    "langchain-text-splitters",
+    "sentence-transformers",
+    "pymilvus",
+    "scikit-learn",
+    "tqdm",
+    "numpy",
+    "torch"
+]
+
+
+
+[project.scripts]
+intelligent-parser = "Scripts.intelligent_parser:main"
+advanced-chunker = "Scripts.advanced_chunker:chunk_documents"
+embedding-client = "Scripts.embedding_client:main"
+import-to-milvus = "Scripts.import_to_milvus:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["Scripts*"]
