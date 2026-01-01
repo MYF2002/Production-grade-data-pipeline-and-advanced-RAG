@@ -76,7 +76,7 @@ def process_file(input_path: str, output_path: str, model_name: str, batch_size:
         return
 
     # 批量生成向量
-    print(f"Encoding {len(texts)} documents...")
+    print(f"Encoding {len(texts)} chunks...")
     embeddings = client.encode(texts, batch_size=batch_size)
     
     # 写入结果
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=str, default=r"data/output/vectorized.jsonl", help="Path to output JSONL file")
     parser.add_argument("--model", type=str, default="fangxq/XYZ-embedding", help="Model name")
     parser.add_argument("--batch_size", type=int, default=32, help="Batch size for encoding")
-    parser.add_argument("--truncate_dim", type=int, default=None, help="Dimension to truncate embeddings to")
+    parser.add_argument("--truncate_dim", type=int, default=768, help="Dimension to truncate embeddings to")
     
     args = parser.parse_args()
     

@@ -34,9 +34,9 @@ def parse_txt(file_path):
 
 def parse_docx(file_path):
     style_map = {
-        "Heading 1": "#",
-        "Heading 2": "##",
-        "Heading 3": "###",
+        "Heading 1": "# ",
+        "Heading 2": "## ",
+        "Heading 3": "### ",
     }
     doc = Document(file_path)
     contents = []
@@ -58,7 +58,7 @@ def parse_pdf(file_path):
         text = page.get_text()
         if text:
             results.append({
-                "content": f"## 第{page_num+1}页\n{text}",
+                "content": f"# 第{page_num+1}页\n{text}",
                 "page": page_num + 1,
                 "is_table": False
             })
